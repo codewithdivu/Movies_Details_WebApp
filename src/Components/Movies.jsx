@@ -15,9 +15,11 @@ class Movies extends Component {
   };
 
   componentDidMount() {
+    const genres = [{ name: "All Genre" }, ...getGenres()];
+
     this.setState({
       movies: getMovies(),
-      genres: getGenres(),
+      genres,
     });
   }
 
@@ -41,25 +43,31 @@ class Movies extends Component {
 
   handleGenreSelect = (genre) => {
     // console.log(genre);
-    this.setState({ selectedGenre: genre });
+    this.setState({ selectedGenre: genre, currentPage: 1 });
   };
 
   render() {
     const { length: count } = this.state.movies;
-    const { pageSize, currentPage,selectedGenre, movies: allMovies } = this.state;
+    const {
+      pageSize,
+      currentPage,
+      selectedGenre,
+      movies: allMovies,
+    } = this.state;
 
     if (this.state.movies.length === 0) {
       return <h1>There are no Movies left in table</h1>;
     }
-    
 
-    const filtered = selectedGenre ? allMovies.filter(m=>m.genre._id===selectedGenre._id):allMovies;
+    const filtered =
+      selectedGenre && selectedGenre._id
+        ? allMovies.filter((m) => m.genre._id === selectedGenre._id)
+        : allMovies;
     const movies = paginate(filtered, currentPage, pageSize);
 
     return (
       <div className="row">
         <div className="col-3">
-
           <ListGroup
             items={this.state.genres}
             // textProperty="name"
@@ -67,12 +75,10 @@ class Movies extends Component {
             selectedItem={this.state.selectedGenre}
             onItemSelect={this.handleGenreSelect}
           />
-
         </div>
 
         <div className="col">
-
-          <h2 className="m-3">there are {this.filtered.length} are left</h2>
+          <h2 className="m-3">there are {filtered.length} are left</h2>
           <table className="table table-striped">
             <thead>
               <tr>
@@ -113,14 +119,12 @@ class Movies extends Component {
           </table>
 
           <Pagination
-            itemCount={this.filtered.length}
+            itemCount={filtered.length}
             pageSize={pageSize}
             currentPage={currentPage}
             onPageChange={this.handlePageChange}
           />
-
         </div>
-
       </div>
     );
   }
