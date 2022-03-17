@@ -24,7 +24,6 @@ const Pagination = (props) => {
   );
 };
 
-
 Pagination.propTypes = {
   itemCount:propTypes.number.isRequired, pageSize:propTypes.number.isRequired, currentPage:propTypes.number.isRequired, onPageChange:propTypes.func.isRequired
 }
