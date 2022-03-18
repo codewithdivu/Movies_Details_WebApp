@@ -1,18 +1,17 @@
 import React, { Component } from "react";
 import Like from "./common/like";
 
-
 const MoviesTable = (props) => {
-  const { movies, onDelete, onLike } = props;
+  const { movies, onDelete, onLike, onSort } = props;
 
   return (
     <table className="table table-striped">
       <thead>
         <tr>
-          <th>Titles</th>
-          <th>Genre</th>
-          <th>Stock</th>
-          <th>Rate</th>
+          <th onClick={() => onSort("title")}>Titles</th>
+          <th onClick={() => onSort("genre.name")}>Genre</th>
+          <th onClick={() => onSort("numberInStock")}>Stock</th>
+          <th onClick={() => onSort("dailyRentalRate")}>Rate</th>
           <th></th>
           <th></th>
         </tr>
@@ -25,10 +24,7 @@ const MoviesTable = (props) => {
             <td>{movie.numberInStock}</td>
             <td>{movie.dailyRentalRate}</td>
             <td>
-              <Like
-                liked={movie.liked}
-                onClick={() => onLike(movie)}
-              />
+              <Like liked={movie.liked} onClick={() => onLike(movie)} />
             </td>
             <td>
               {
