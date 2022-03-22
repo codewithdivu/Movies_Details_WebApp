@@ -1,7 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-const MovieForm = (props) => {
-    return ( <h1>MovieFrom Component is here</h1> );
-}
- 
+const MovieForm = ({ match, history }) => {
+  return (
+    <div>
+      <h1>MovieFrom {match.params.id}</h1>
+      <button
+        className="btn btn-primary"
+        onClick={() => history.push("/movies")}
+      >
+        Save
+      </button>
+    </div>
+  );
+};
+
 export default MovieForm;
