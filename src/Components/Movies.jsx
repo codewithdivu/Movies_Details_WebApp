@@ -5,6 +5,7 @@ import { paginate } from "../utils/paginate";
 import ListGroup from "./common/listGroup";
 import Pagination from "./common/pagination";
 import MoviesTable from "./moviesTable";
+import { Link } from "react-router-dom";
 import _ from "lodash";
 
 class Movies extends Component {
@@ -16,13 +17,13 @@ class Movies extends Component {
     sortColumn: { path: "title", order: "asc" },
   };
 
-  constructor(props) {
-    super(props);
-    console.log("constructor is rendered");
-  }
+  // constructor(props) {
+  //   super(props);
+  //   console.log("constructor is rendered");
+  // }
 
   componentDidMount() {
-    console.log("Didmount is rendred");
+    // console.log("Didmount is rendred");
     const genres = [{ _id: "", name: "All Genre" }, ...getGenres()];
 
     this.setState({
@@ -31,9 +32,9 @@ class Movies extends Component {
     });
   }
 
-  componentDidUpdate() {
-    console.log("DidUpdate is rendred");
-  }
+  // componentDidUpdate() {
+  //   console.log("DidUpdate is rendred");
+  // }
 
   handleDelete = (movie) => {
     const movies = this.state.movies.filter((m) => m._id !== movie._id);
@@ -65,7 +66,6 @@ class Movies extends Component {
   };
 
   getPagedData = () => {
-
     const {
       pageSize,
       currentPage,
@@ -83,24 +83,20 @@ class Movies extends Component {
 
     const movies = paginate(sorted, currentPage, pageSize);
 
-    return { totalCount : filtered.length, data : movies }
+    return { totalCount: filtered.length, data: movies };
   };
 
   render() {
     console.log("Render method rendred");
 
     const { length: count } = this.state.movies;
-    const {
-      pageSize,
-      currentPage,
-      sortColumn,
-    } = this.state;
+    const { pageSize, currentPage, sortColumn } = this.state;
 
     if (this.state.movies.length === 0) {
       return <h1>There are no Movies left in table</h1>;
     }
 
-    const {totalCount,data:movies} = this.getPagedData();
+    const { totalCount, data: movies } = this.getPagedData();
 
     return (
       <div className="row">
@@ -115,6 +111,14 @@ class Movies extends Component {
         </div>
 
         <div className="col">
+          <Link
+            to="/movies/new"
+            style={{ marginBottom: 20 }}
+            className="btn btn-primary"
+          >
+            New Movie
+          </Link>
+
           <h2 className="m-3">there are {totalCount} are left</h2>
           <MoviesTable
             movies={movies}
