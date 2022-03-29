@@ -5,6 +5,7 @@ import Customer from './Components/customer';
 import Rentals from './Components/rentals';
 import NotFound from './Components/notFound';
 import MovieForm from './Components/movieForm';
+import queryString from 'query-string';
 import NavBar from './Components/navBar';
 import LoginForm from './Components/loginForm';
 import RegisterForm from './Components/registerForm';
